@@ -1,0 +1,46 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="w-screen flex justify-center">
+        <div class="main w-[80%]  py-8 px-16">
+                 <h1 class="text-black font-medium text-3xl ml-4 mb-1">Add your List</h1>
+                <form action="/create" method="post">
+                    
+                          <div class="form-group mt-2">
+                            <label for="title">Title</label><br>
+                            <input class="w-[90%] rounded-sm py-1 px-2" required="" name="title"  id="title" type="text" placeholder="Give your space a catchy title">
+                          </div>
+               
+                          <div class="form-group">
+                            <label for="textarea">Description</label><br>
+                            <textarea  class="rounded-sm p-1" required="" cols="96" rows="3" id="textarea" name="description" placeholder="Share some detail about your place"></textarea>
+                          </div>
+               
+                          <div class="form-group">
+                           <label for="img">Image URL/LINK</label><br>
+                           <input class="w-[90%] rounded-sm py-1 px-2" required="" placeholder="Past your link here" name="image" id="img" type="text">
+                         </div>
+               
+                    <div class="flex gap-10">
+                         <div class="form-group">
+                           <label for="price">Price</label><br>
+                           <input class="w-80 rounded-sm py-1 px-2" placeholder="&#x20B9; 1200" required=""  name="price" id="price" type="number">
+                         </div>
+                         <div class="form-group">
+                         <label for="location">Location</label><br>
+                        <input class="w-80 rounded-sm py-1 px-2" placeholder="Delhi" required="" name="location" id="location" type="text">
+                         </div>
+                    </div>
+
+
+                   <div class="form-group">
+                     <label for="country">Country</label><br>
+                     <input class="w-[90%] rounded-sm py-1 px-2" placeholder="India" required="" name="country" id="country" type="text">
+                   </div>
+               
+                          <button type="submit" class="ml-4 text-white rounded-md mt-4 w-32 h-8 bg-[#fb3a5c]">Add new liting</button>
+                       
+                </form>
+        </div>
+    </div> 
+</body>
+

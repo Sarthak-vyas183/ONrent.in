@@ -1,19 +1,20 @@
 <% layout("/layouts/boilerplate") %>
 <body>
-       <div class="w-[100vw] h-auto p-4  flex items-center justify-center">
-          <div class="w-1/2 ">
+    <div class="w-[100vw] h-auto p-4  flex items-center justify-center">
+         <div class="w-1/2 ">
              <div class="w-full h-[30%] flex justify-center mb-4"><img class="rounded-md w-96 h-60" src="<%= listing.image %>" alt="loading...."></div>
             <h1><b>Titel</b> : <%= listing.title %></h1>  
-            <p><b>Description : <%= listing.description %> </b></p>
+            <p><b>Description</b> : <%= listing.description %> </p>
             <h1><b>Price</b>: &#8377 <%=listing.price.toLocaleString("en-In")%>/month </h1> 
             <h1><b>Country</b>: <%= listing.country %></h1>
             <h2><b>Location : </b><%= listing.location %></h2>
-            <div class="btn mt-6">
-                <button class="createbtn w-24 h-8 bg-blue-800 rounded-sm mr-4"><p class="text-white">Edit</p></button>
-                <button class="w-24 h-8 bg-red-600 rounded-sm mr-4"><a class="text-white" href="/delete/<%= listing._id %>">Delete</a></button>
+            <div class=" mt-6">
+                <a class="text-white w-24 h-8 bg-blue-800 rounded-sm mr-4 px-7 py-2" href="/edit/<%=listing._id %>">Edit</a>
+                <a class="text-white w-24 h-8 bg-red-800 rounded-sm mr-4 px-7 py-2" href="/delete/<%=listing._id %>">Delete</a>
             </div>
         </div>
        </div>
+
        <section class="create-form flex justify-center absolute top-[-1000px]  w-[100%] h-screen items-center">
         <div class=" w-[40%] flex items-center justify-center">
          

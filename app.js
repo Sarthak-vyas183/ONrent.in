@@ -57,6 +57,11 @@ app.post("/create", async (req, res) => {
     }
 });
 
+app.get("/create" , (req , res)=>{
+    res.render("listing/create.ejs")
+})
+
+
 app.get("/delete/:id" , async (req ,res)=>{
    const list =  await listingModel.findOneAndDelete({_id : req.params.id});
   res.send(`
@@ -67,6 +72,10 @@ app.get("/delete/:id" , async (req ,res)=>{
 `);
 })
 
+app.get("/edit/:id" , async(req , res)=>{4
+    const listing = await listingModel.findOne({ _id: req.params.id });
+    res.render("listing/edit" , {listing}); 
+})
 
 app.post("/edit/:id", async (req, res) => {
     try {

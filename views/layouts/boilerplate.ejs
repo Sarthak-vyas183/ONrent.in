@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airbnv</title>
+    <title>onRent</title>
 </head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
  <link rel="stylesheet" href="/Stylesheet/style.css">
@@ -15,22 +15,88 @@
 
 
 
-  <div class="w-screen h-[10vh] bg-white px-4 nav">Navbar</div>
-
-
-
-
-
-
-
-
+  <div class="w-screen h-[10vh]  px-4 nav">
+    <div class="left  flex gap-12  items-center">
+    <div class="logo flex  flex items-center">
+        <a href="/"><img class="w-10 h-10 " src="../images/logo.png" alt=""></a>
+        <h1 class="text-[#fb3a5c] font-semibold text-2xl ">onRent</h1>
+    </div>
+      <ul class="flex gap-10">
+        <li><a href="/">All Listing</a></li>
+        <li><a href="/create">Add Listing</a></li>
+      </ul>
+    </div>
+    <div class="right"></div>
+  </div>
 
     <div class="container">
         <%- body  %>
     </div>
-    <div class="footer w-screen h-[50vh] bg-blue-600">
 
-    </div>
+
+  <div class="footer w-screen h-[60vh] bg-slate-200 flex-col px-10">
+        <div class="flex gap-40 px-10 py-4 justify-center">
+            <section>
+              <h1 class="font-semibold mb-4">Support</h1>
+              <ul>
+                <li><a href="/"></a>Help Center</li>
+                <li><a href="/"></a>Anti-discrimination</li>
+                <li><a href="/"></a>Disability support</li>
+                <li><a href="/">Cancellation options</a></li>
+                <li><a href="/">Report neighbourhood concern</a></li>
+                
+              </ul>
+            </section>
+
+            <section>
+              <h1 class="font-semibold mb-4">Hosting</h1>
+              <ul>
+                <li><a href="/">Airbnb your home</a></li>
+                <li><a href="/">AirCover for Hosts</a></li>
+                <li><a href="/">Hosting resources</a></li>
+                <li><a href="/">Community forum</a></li>
+                <li><a href="/">Hosting responsibly</a></li>
+                <li><a href="/">Join a free Hosting class</a></li>
+              </ul>
+            </section>
+
+
+            <section>
+             <h1 class="font-semibold mb-4">onRent</h1>
+             <ul>
+              <li><a href="/">Newsroom</a></li>
+              <li><a href="/">New features</a></li>
+              <li><a href="/">Careers</a></li>
+              <li><a href="/">Investors</a></li>
+              <li><a href="/">Airbnb.org emergency stays</a></li>
+             </ul>
+
+            </section>
+       </div>
+
+      <section class="w-full flex justify-center"><div class="w-[80%] h-[1px] bg-black"></div></section>
+       
+      <section class="flex justify-center gap-10 w-full pt-2">
+      <div class="w-[80%] flex justify-between ">
+        <div class="flex gap-10">
+        <p>©<span id="year">2024</span> onRent,Inc.</p>
+        <p class="flex gap-10">
+          <a href="/">.Privacy.</a>
+          <a href="/">.Term.</a>
+          <a href="/">.Sitemap.</a>
+          <a href="/">.Company details.</a>
+        </p>
+        </div>
+
+        <div class="flex gap-2">
+        <a href="/"> <i class="fa-brands fa-facebook"></i></a>
+        <a href="/"><i class="fa-brands fa-twitter"></i></a>
+         <a href="/"><i class="fa-brands fa-square-instagram"></i></a>
+      </div>
+      </div>
+      </section>
+
+  </div>
 </body>
   <script src="/javascript/app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js
