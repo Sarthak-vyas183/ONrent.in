@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Sedan+SC&display=swap');
 body {
     background-color: pink;
+    overflow-x: hidden;
 }
 *{
     font-family: "Philosopher", sans-serif;
@@ -128,3 +129,4 @@ border-color: #fff;
 color: rgb(255, 255, 255);  
 }
 
+/* Navbar css */
