@@ -44,18 +44,19 @@
         </button>
         <div class="dropdown-content min-w-52 min-h-40 mt-2  p-3 rounded-md">
           <div>
-            <% if (userdata) { %>
-                <p class="leading-8 px-2 rounded-sm"><%=userdata.username%></p>
-            <% } else { %>
-                <a class="leading-8 px-2 rounded-sm" href="/signup">Sign Up</a>
+            <% if (login == false) { %>
+               <a class="leading-8 px-2 rounded-sm" href="/signup">Sign Up</a>
                 <a class="leading-8 px-2 rounded-sm" href="/login">Login</a>
             <% } %>
+            <% if(login) {  %>
+              <a class="leading-8 px-2 rounded-sm" href="/Profile">Profile</a>
+          <%  } %>
         </div>
           <hr>
          <div>
           <a class="leading-8 px-2 rounded-sm" href="/create">onRent your home</a>
           <a class="leading-8 px-2 rounded-sm" href="/">Help center</a>
-          <% if (userdata) { %>
+          <% if (login == true) { %>
               <a class="ml-20 bg-red-500 w-20 h-6 px-3 text-white rounded-sm" href="/logout">logout</a>
         <% }  %>
          </div>

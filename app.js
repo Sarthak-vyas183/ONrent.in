@@ -33,50 +33,39 @@ main().then(() => {
 
 app.get("/", async (req, res) => {
     const itemdata = await listingModel.find({});
-   
+    let login = false;
     if(req.cookies.token) {
-        try {
-            loggeduser = jwt.verify(req.cookies.token, "sarthak");
-        } catch (err) {
-            console.log("Invalid token");
-        }
+       login = true;
     }
-    let userdata = await userModel.findOne({email : loggeduser.email});
-    res.render("listing/index", { itemdata, userdata });
+    res.render("listing/index", { itemdata, login });
 });
 
 app.get("/show/:id", async (req, res) => {
     const listing = await listingModel.findOne({ _id: req.params.id });
+    let login = false;
     if(req.cookies.token) {
-        try {
-            loggeduser = jwt.verify(req.cookies.token, "sarthak");
-        } catch (err) {
-            console.log("Invalid token");
-        }
+       login = true;
     }
-    let userdata = await userModel.findOne({email : loggeduser.email});
-    res.render("listing/show", {listing , userdata}); 
+    res.render("listing/show", {listing , login}); 
 
 });
 
 
 app.get("/create", isloggedIn , async (req , res)=>{
-    let loggeduser = null;
+    let login = false;
     if(req.cookies.token) {
-        try {
-            loggeduser = jwt.verify(req.cookies.token, "sarthak");
-        } catch (err) {
-            console.log("Invalid token");
-        }
+       login = true;
     }
-    let userdata = await userModel.findOne({email : loggeduser.email});
-    res.render("listing/create" , {userdata})
+    res.render("listing/create" , {login})
 }) 
 
 app.post("/create", isloggedIn , async (req, res) => {
+    const user = await userModel.findOne({email : req.user.email})
+   
     try {
         const { title, description, image, price, location, country } = req.body;
         const data = await listingModel.create({
+            userid : user._id,
             title,
             description,
             image,
@@ -84,24 +73,21 @@ app.post("/create", isloggedIn , async (req, res) => {
             location,
             country
         });
-        console.log(data);
-        res.send("success");
+        user.list.push(data._id);
+       await user.save()
+       console.log(user);
+       res.send("success");
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
 app.get("/signup" , async (req , res)=>{
-    let loggeduser = null;
+    let login = false;
     if(req.cookies.token) {
-        try {
-            loggeduser = jwt.verify(req.cookies.token, "sarthak");
-        } catch (err) {
-            console.log("Invalid token");
-        }
+       login = true;
     }
-    let userdata = await userModel.findOne({email : loggeduser.email});
-    res.render("listing/signup" , {userdata});
+    res.render("listing/signup" , {login});
    
 })
 
@@ -129,16 +115,11 @@ app.post("/signup" ,async (req,res)=>{
 }) ;
 
 app.get("/login" , async (req , res)=>{
-    let loggeduser = null;
+    let login = false;
     if(req.cookies.token) {
-        try {
-            loggeduser = jwt.verify(req.cookies.token, "sarthak");
-        } catch (err) {
-            console.log("Invalid token");
-        }
+       login = true;
     }
-    let userdata = await userModel.findOne({email : loggeduser.email});
-    res.render("listing/login" , {userdata});
+    res.render("listing/login" , {login});
 })
 
 app.post("/login", async (req, res) => {
@@ -163,6 +144,13 @@ app.post("/login", async (req, res) => {
 app.get("/logout" , (req , res)=>{
     res.cookie('token' , "");
     res.redirect("/login");
+})
+
+app.get("/list" , isloggedIn , async (req , res)=>{
+     const ownerlist = await listingModel.find({userid : req.user.userid})
+     console.log(ownerlist);
+     res.send("all your lists");
+
 })
 
 function isloggedIn(req,res,next) {
@@ -205,15 +193,11 @@ app.get("/delete/:id", isloggedIn , async (req ,res)=>{
 
 app.get("/edit/:id", isloggedIn , async(req , res)=>{4
     const listing = await listingModel.findOne({ _id: req.params.id });
+    let login = false;
     if(req.cookies.token) {
-        try {
-            loggeduser = jwt.verify(req.cookies.token, "sarthak");
-        } catch (err) {
-            console.log("Invalid token");
-        }
+       login = true;
     }
-    let userdata = await userModel.findOne({email : loggeduser.email});
-    res.render("listing/edit" , {listing , userdata}); 
+    res.render("listing/edit" , {listing , login}); 
 })
 
 app.post("/edit/:id", async (req, res) => {
