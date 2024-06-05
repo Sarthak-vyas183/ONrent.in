@@ -31,14 +31,52 @@ main().then(() => {
     console.log("mongoose connection failed", err);
 });
 
-app.get("/", async (req, res) => {
+app.get("/" , (req , res)=>{
+    res.render("listing/home");
+})
+
+app.get("/remedies" , async (req , res)=>{
     const itemdata = await listingModel.find({});
     let login = false;
     if(req.cookies.token) {
-       login = true;
-    }
+        login = true;
+     }
     res.render("listing/index", { itemdata, login });
+})
+
+app.get("/verify", isloggedIn , isAdmin ,async (req, res) => {
+    const itemdata = await listingModel.find({});
+    const user = await userModel.findOne({email : req.user.email});
+    let login = true;
+    res.render("listing/admin", { itemdata, login });
 });
+
+async function isAdmin(req, res, next) {
+    try {
+        // Check if token is present
+        if (!req.cookies.token) {
+            return res.redirect("/login");
+        }
+
+        // Retrieve the user based on the token's email (assuming req.user is set properly by some authentication middleware)
+        let user = await userModel.findOne({ email: req.user.email });
+
+        // Check if the user exists and has admin privileges
+        if (user && user.isAdmin) {
+            req.admin = true;
+            next();
+        } else {
+            res.redirect("/login");
+        }
+    } catch (error) {
+        console.error(error); // Log the error for debugging
+        res.redirect("/login");
+    }
+}
+
+
+
+
 
 app.get("/show/:id", async (req, res) => {
     const listing = await listingModel.findOne({ _id: req.params.id });
@@ -73,8 +111,8 @@ app.post("/create", isloggedIn , async (req, res) => {
          });
         user.list.push(data._id);
        await user.save()
-       console.log(user);
-       res.send("success");
+      
+       res.redirect("/");
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -103,7 +141,7 @@ app.post("/signup" ,async (req,res)=>{
                   coverImage,
                   password: hash,
     })
-    console.log(user);
+   
    let token =  jwt.sign({email : user.email , userid : user._id}, "sarthak")
    res.cookie('token' , token);
        res.redirect("/");
@@ -149,7 +187,7 @@ app.get("/list" , isloggedIn , async (req , res)=>{
      const ownerlist = await listingModel.find({userid : req.user.userid})
      const ownerDetail = await userModel.findOne({_id : req.user.userid})
      
-     console.log(ownerlist);
+    
      res.render("listing/profile" , {ownerlist, login , ownerDetail})
 
 })
@@ -203,23 +241,21 @@ app.get("/edit/:id", isloggedIn , async(req , res)=>{4
 
 app.post("/edit/:id", async (req, res) => {
     try {
-        const { title, description, image, price, location, country } = req.body;
+        const { title, description, recipe , image } = req.body;
         const listing = await listingModel.findOneAndUpdate({_id : req.params.id},
             {
                 title,
                 description,
+                recipe,
                 image,
-                price,
-                location,
-                country,
-               
-            },
+             },
           
         );
         if (!listing) {
             return res.status(404).send("Listing not found");
         }
-         res.redirect(`/show/${listing._id}`)
+        // res.redirect(`/show/${listing._id}`)
+        res.redirect("/list");
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

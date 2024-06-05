@@ -39,6 +39,13 @@ const userSchema = new Schema({
         type : String,
         require : [true , "password is required"]
      },
+
+     isadmin : {
+         type : Boolean,
+         default : false
+     },
+
+     rmpcertificate : String,
     
 });
 

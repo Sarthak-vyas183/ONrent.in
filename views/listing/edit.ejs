@@ -8,22 +8,22 @@
                     
                   <div class="form-group mt-2">
                     <label for="title">Title</label><br>
-                    <input class="w-[90%] rounded-sm py-1 px-2" required="" name="title"  id="title" type="text" placeholder="Give your space a catchy title">
+                    <input class="w-[90%] rounded-sm py-1 px-2" value="<%= listing.title %> " required="" name="title"  id="title" type="text" placeholder="Give your space a catchy title">
                   </div>
        
                   <div class="form-group">
                     <label for="textarea">Description</label><br>
-                    <textarea  class="rounded-sm p-1" required="" cols="96" rows="3" id="textarea" name="description" placeholder="Share Use case/Benefits  about your Remedy"></textarea>
+                    <textarea  class="rounded-sm p-1"  required="" cols="96" rows="3" id="textarea" name="description" placeholder="Share Use case/Benefits  about your Remedy"><%=listing.description %></textarea>
                   </div>
 
                   <div class="form-group">
                     <label for="textarea">Recipe</label><br>
-                    <textarea  class="rounded-sm p-1" required="" cols="96" rows="3" id="textarea" name="recipe" placeholder="Share Full Recipe about Remedy"></textarea>
+                    <textarea  class="rounded-sm p-1"  required=""  cols="96" rows="3" id="textarea" name="recipe" placeholder="Share Full Recipe about Remedy"><%= listing.recipe %></textarea>
                   </div>
        
                   <div class="form-group">
                    <label for="img">Image URL/LINK</label><br>
-                   <input class="w-[90%] rounded-sm py-1 px-2" required="" placeholder="Paste your link here" name="image" id="img" type="text">
+                   <input class="w-[90%] rounded-sm py-1 px-2" value="<%= listing.image%> required="" placeholder="Paste your link here" name="image" id="img" type="text">
                  </div>
        
     <button type="submit" class="ml-4 text-white rounded-md mt-4 w-32 h-8 bg-[#fb3a5c]">Add new liting</button>
