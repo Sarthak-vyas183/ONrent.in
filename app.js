@@ -147,9 +147,12 @@ app.get("/logout" , (req , res)=>{
 })
 
 app.get("/list" , isloggedIn , async (req , res)=>{
+     let login = true
      const ownerlist = await listingModel.find({userid : req.user.userid})
+     const ownerDetail = await userModel.findOne({_id : req.user.userid})
+     
      console.log(ownerlist);
-     res.send("all your lists");
+     res.render("listing/profile" , {ownerlist, login , ownerDetail})
 
 })
 

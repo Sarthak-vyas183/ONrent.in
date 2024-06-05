@@ -19,6 +19,11 @@ const listingSchema = new Schema({
     price : Number,
     location : String,
     country : String,
+    
+    verified : {
+        type : Boolean,
+        default : false,
+    }
 })
 
 module.exports = mongoose.model("listing" , listingSchema);
