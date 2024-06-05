@@ -6,20 +6,20 @@
         <h1 class="font-midium flex mr-4 items-center"><%= ownerDetail.email %></h1>
     </div>
     <p class="border border-black"></p>
+     <h1 class="px-4 text-2xl text-green-500">Your Posts/Remedies are : </h1>
      <% ownerlist.map((list , index)=>{  %>
-             <div class="w-[100vw] h-auto p-4  flex items-center justify-center">
-        <div class="w-1/2 ">
-            <div class="w-full h-[30%] flex justify-center mb-4"><img class="rounded-md w-96 h-60" src="<%= list.image %>" alt="loading...."></div>
-           <h1><b>Titel</b> : <%= list.title %></h1>  
-           <p><b>Description</b> : <%= list.description %> </p>
-           <h1><b>Price</b>: &#8377 <%=list.price.toLocaleString("en-In")%>/month </h1> 
-           <h1><b>Country</b>: <%= list.country %></h1>
-           <h2><b>Location : </b><%= list.location %></h2>
-           <div class=" mt-6">
-               <a class="text-white w-24 h-8 bg-blue-800 rounded-sm mr-4 px-7 py-2" href="/edit/<%=list._id %>">Edit</a>
-               <a class="text-white w-24 h-8 bg-red-800 rounded-sm mr-4 px-7 py-2" href="/delete/<%=list._id %>">Delete</a>
-           </div>
-       </div>
-      </div>
+        <div class="w-[100vw] h-auto p-4  flex items-center justify-center">
+            <div class="w-1/2 ">
+                <div class="w-full h-[30%] flex justify-center mb-4"><img class="rounded-md w-96 h-60" src="<%= list.image %>" alt="loading...."></div>
+               <h1 class="bold" ><b>Titel</b> : <%= list.title %></h1>  <br>
+               <p><b>Description</b> : <%= list.description %> </p> <br>
+               <p><b>Recipe : </b> <%= list.recipe %></p>
+               <div class=" mt-6">
+                <a class="text-white w-24 h-8 bg-blue-800 rounded-sm mr-4 px-7 py-2" href="/edit/<%=list._id %>">Edit</a>
+                <a class="text-white w-24 h-8 bg-red-800 rounded-sm mr-4 px-7 py-2" href="/delete/<%=list._id %>">Delete</a>
+            </div>
+            </div>
+           
+    </div>
    <%  }) %>
 </body>

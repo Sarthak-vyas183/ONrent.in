@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-let mongooseURL = "mongodb://127.0.0.1:27017/wanderlust";
+let mongooseURL = "mongodb://127.0.0.1:27017/RuralRemedies";
 
 let main = async () => {
     await mongoose.connect(mongooseURL);
@@ -63,16 +63,14 @@ app.post("/create", isloggedIn , async (req, res) => {
     const user = await userModel.findOne({email : req.user.email})
    
     try {
-        const { title, description, image, price, location, country } = req.body;
+        const { title, description,recipe,image} = req.body; 
         const data = await listingModel.create({
             userid : user._id,
             title,
             description,
+            recipe,
             image,
-            price,
-            location,
-            country
-        });
+         });
         user.list.push(data._id);
        await user.save()
        console.log(user);
@@ -227,6 +225,6 @@ app.post("/edit/:id", async (req, res) => {
     }
 });
 
-app.listen(8080, () => {
+app.listen(3000, () => {
     console.log("app is listening at port 8080");
 });

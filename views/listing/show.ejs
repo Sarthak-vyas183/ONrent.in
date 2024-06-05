@@ -3,11 +3,9 @@
     <div class="w-[100vw] h-auto p-4  flex items-center justify-center">
          <div class="w-1/2 ">
              <div class="w-full h-[30%] flex justify-center mb-4"><img class="rounded-md w-96 h-60" src="<%= listing.image %>" alt="loading...."></div>
-            <h1><b>Titel</b> : <%= listing.title %></h1>  
-            <p><b>Description</b> : <%= listing.description %> </p>
-            <h1><b>Price</b>: &#8377 <%=listing.price.toLocaleString("en-In")%>/month </h1> 
-            <h1><b>Country</b>: <%= listing.country %></h1>
-            <h2><b>Location : </b><%= listing.location %></h2>
+            <h1 class="bold" ><b>Titel</b> : <%= listing.title %></h1>  <br>
+            <p><b>Description</b> : <%= listing.description %> </p> <br>
+            <p><b>Recipe : </b> <%= listing.recipe %></p>
             
         </div>
        </div>
