@@ -1,41 +1,58 @@
 <% layout("/layouts/boilerplate", {login : login}) %>
 
 <body>
-    <div class="w-screen flex justify-center">
-        <div class="main w-[50%]  py-8 px-16">
-            <h1 class="text-black font-medium text-3xl ml-40 mb-1">SignUp</h1>
+  <div class="w-screen flex justify-center">
+    <div class="main w-[50%] py-8 px-16">
+        <h1 class="text-black font-medium text-3xl ml-40 mb-1">SignUp</h1>
 
         <form action="/signup" method="post">
-                    
             <div class="form-group mt-2">
-              <label for="title">Full Name</label><br>
-              <input class="w-[90%] rounded-sm py-1 px-2" required="" name="fullname"  id="title" type="text" placeholder="Enter your Name">
+                <label for="fullname">Full Name</label><br>
+                <input class="w-[90%] rounded-sm py-1 px-2" required name="fullname" id="fullname" type="text" placeholder="Enter your Name">
             </div>
- 
-            <div class="form-group">
-              <label for="username">username</label><br>
-              <input  class="w-[90%] rounded-sm py-1 px-2" required=""  id="username" name="username" placeholder="@vedant_sharam"></input>
-            </div>
- 
-            <div class="form-group">
-             <label for="email">email</label><br>
-             <input class="w-[90%] rounded-sm py-1 px-2" required="" placeholder="abcd@gmail.com" name="email" id="email" type="email">
-           </div>
-
-           <div class="form-group">
-            <label for="pass">Password</label><br>
-            <input class="w-[90%] rounded-sm py-1 px-2" required="" placeholder="Create Strong Password" name="password" id="password" type="text">
-           </div>
 
             <div class="form-group">
-             <label for="img">Image</label><br>
-             <input class="w-[90%] rounded-sm py-1 px-2"  placeholder="Profile image URL/link" name="coverImage" id="img" type="text">
-           </div>
+                <label for="username">Username</label><br>
+                <input class="w-[90%] rounded-sm py-1 px-2" required id="username" name="username" placeholder="@vedant_sharam">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label><br>
+                <input class="w-[90%] rounded-sm py-1 px-2" required name="email" id="email" type="email" placeholder="abcd@gmail.com">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label><br>
+                <input class="w-[90%] rounded-sm py-1 px-2" required name="password" id="password" type="text" placeholder="Create Strong Password">
+            </div>
+
+            <div class="form-group">
+                <label for="coverImage">Image</label><br>
+                <input class="w-[90%] rounded-sm py-1 px-2" name="coverImage" id="coverImage" type="text" placeholder="Profile image URL/link">
+            </div>
+
+            <div class="form-group">
+              <label for="isDoctor">Are you a doctor?</label><br>
+              <select class="w-[90%] rounded-sm py-1 px-2 border border-black" name="isDoctor" id="isDoctor" onchange="toggleRMPFields()">
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+              </select>
+            </div>
+
+            <div id="rmpFields" style="display: none;">
+                <div class="form-group mt-2">
+                    <label for="rmpImage">RMP Certificate Image Link</label><br>
+                    <input class="w-[90%] rounded-sm py-1 px-2" name="rmpcertificate" id="rmpImage" type="text" placeholder="Enter RMP Certificate image link">
+                </div>
+
+                <div class="form-group">
+                    <label for="rmpNumber">RMP Certificate Number</label><br>
+                    <input class="w-[90%] rounded-sm py-1 px-2" name="rmpCertificateNo" id="rmpNumber" type="text" placeholder="Enter RMP Certificate number">
+                </div>
+            </div>
 
             <button type="submit" class="ml-4 text-white rounded-md mt-4 w-32 h-8 bg-[#fb3a5c]">SignUp</button>
-         
-  </form>
+        </form>
     </div>
-</div>
 </div>
 </body>

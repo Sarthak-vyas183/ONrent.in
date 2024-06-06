@@ -15,3 +15,34 @@ document.getElementById('btn-message').addEventListener('click', function(event)
       }
     }
   }
+
+
+
+  // signup page java script : 
+  function toggleRMPFields() {
+    var isDoctor = document.getElementById("isDoctor").value;
+    var rmpFields = document.getElementById("rmpFields");
+
+    if (isDoctor === "yes") {
+        rmpFields.style.display = "block";
+    } else {
+        rmpFields.style.display = "none";
+    }
+}
+
+function toggleRMPFields() {
+  const isDoctor = document.getElementById('isDoctor').value;
+  const rmpFields = document.getElementById('rmpFields');
+  const rmpImage = document.getElementById('rmpImage');
+  const rmpNumber = document.getElementById('rmpNumber');
+
+  if (isDoctor === 'yes') {
+      rmpFields.style.display = 'block';
+      rmpImage.required = true;
+      rmpNumber.required = true;
+  } else {
+      rmpFields.style.display = 'none';
+      rmpImage.required = false;
+      rmpNumber.required = false;
+  }
+}

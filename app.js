@@ -32,8 +32,13 @@ main().then(() => {
 });
 
 app.get("/" , (req , res)=>{
-    res.render("listing/home");
+    let login = false;
+    if(req.cookies.token) {
+        login = true;
+     }
+    res.render("listing/home" , {login});
 })
+
 
 app.get("/remedies" , async (req , res)=>{
     const itemdata = await listingModel.find({});
@@ -44,14 +49,14 @@ app.get("/remedies" , async (req , res)=>{
     res.render("listing/index", { itemdata, login });
 })
 
-app.get("/verify", isloggedIn , isAdmin ,async (req, res) => {
+app.get("/verify", isloggedIn , isDoctor ,async (req, res) => {
     const itemdata = await listingModel.find({});
     const user = await userModel.findOne({email : req.user.email});
     let login = true;
     res.render("listing/admin", { itemdata, login });
 });
 
-async function isAdmin(req, res, next) {
+async function isDoctor(req, res, next) {
     try {
         // Check if token is present
         if (!req.cookies.token) {
@@ -62,8 +67,8 @@ async function isAdmin(req, res, next) {
         let user = await userModel.findOne({ email: req.user.email });
 
         // Check if the user exists and has admin privileges
-        if (user && user.isAdmin) {
-            req.admin = true;
+        if (user && user.isDoctor) {
+            req.isdoctor = true;
             next();
         } else {
             res.redirect("/login");
@@ -73,10 +78,6 @@ async function isAdmin(req, res, next) {
         res.redirect("/login");
     }
 }
-
-
-
-
 
 app.get("/show/:id", async (req, res) => {
     const listing = await listingModel.findOne({ _id: req.params.id });
@@ -128,7 +129,7 @@ app.get("/signup" , async (req , res)=>{
 })
 
 app.post("/signup" ,async (req,res)=>{
-    let {fullname ,username ,email , coverImage, password} = req.body;
+    let {fullname ,username ,email , coverImage, password , isDoctor , rmpcertificate , rmpCertificateNo } = req.body;
     let user = await userModel.findOne({email});
     if(user) return res.status(500).send("User already register");
     
@@ -140,6 +141,9 @@ app.post("/signup" ,async (req,res)=>{
                   email,
                   coverImage,
                   password: hash,
+                  isDoctor,
+                  rmpcertificate,
+                  rmpCertificateNo
     })
    
    let token =  jwt.sign({email : user.email , userid : user._id}, "sarthak")

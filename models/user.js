@@ -40,12 +40,20 @@ const userSchema = new Schema({
         require : [true , "password is required"]
      },
 
-     isadmin : {
+     isDoctor : {
          type : Boolean,
          default : false
      },
 
-     rmpcertificate : String,
+     rmpCertificateNo : {
+        type : String,
+        default : null
+     },
+     
+     rmpcertificate : {
+        type : String,
+        default : null
+     },
     
 });
 
