@@ -2,12 +2,35 @@
 <body>
     <div class="w-[100vw] h-auto p-4  flex items-center justify-center">
          <div class="w-1/2 ">
+
+         <% if(listing.verified == true) {   %>
+                 <div class="container relative">
+               <div class="verified flex items-center space-x-2">
+                    <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <img class="w-full h-full" src="/images/verified.png" alt="Verified">
+                    </span>
+                    <h1 class="text-green-500">Verified</h1>
+                </div>
+            </div>
+         <%  } %>
+            
+            
              <div class="w-full h-[30%] flex justify-center mb-4"><img class="rounded-md w-96 h-60" src="<%= listing.image %>" alt="loading...."></div>
             <h1 class="bold" ><b>Titel</b> : <%= listing.title %></h1>  <br>
             <p><b>Description</b> : <%= listing.description %> </p> <br>
             <p><b>Recipe : </b> <%= listing.recipe %></p>
+             
+           <% if(isDoctor == true)  {  %>
+            <div class=" mt-6">
+                <a class="text-white w-24 h-8 bg-blue-800 rounded-sm mr-4 px-7 py-2" href="/edit/<%=listing._id %>">Edit</a>
+                <a class="text-white w-24 h-8 bg-red-800 rounded-sm mr-4 px-7 py-2" href="/delete/<%=listing._id %>">Delete</a>
+                <a class="text-white w-24 h-8 bg-green-600 rounded-sm mr-4 px-7 py-2" href="/verification/<%=listing._id %>">Verify Remedy</a>
+             </div>
+         <%  }%>
             
-        </div>
+          
+
+    </div>
        </div>
 
       

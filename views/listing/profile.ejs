@@ -3,7 +3,15 @@
 <body>
     <div class="second-header w-screen h-[5vh] bg-white px-4 flex justify-between">
         <h1 class="font-semibold text-2xl">Welcome , <%= ownerDetail.fullname %></h1>
+        <h1 class=" text-green-500 text-2xl">
+            <% if(ownerDetail.isDoctor == true) { %>
+                    Status : Doctor/Admin
+         <%   } else {  %>
+                  Status : User
+        <%  } %>
+        </h1>
         <h1 class="font-midium flex mr-4 items-center"><%= ownerDetail.email %></h1>
+       
     </div>
     <p class="border border-black"></p>
      <h1 class="px-4 text-2xl text-green-500">Your Posts/Remedies are : </h1>

@@ -8,6 +8,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { userInfo } = require("os");
 
 
 app.engine('ejs', engine);
@@ -56,36 +57,21 @@ app.get("/verify", isloggedIn , isDoctor ,async (req, res) => {
     res.render("listing/admin", { itemdata, login });
 });
 
-async function isDoctor(req, res, next) {
-    try {
-        // Check if token is present
-        if (!req.cookies.token) {
-            return res.redirect("/login");
-        }
 
-        // Retrieve the user based on the token's email (assuming req.user is set properly by some authentication middleware)
-        let user = await userModel.findOne({ email: req.user.email });
-
-        // Check if the user exists and has admin privileges
-        if (user && user.isDoctor) {
-            req.isdoctor = true;
-            next();
-        } else {
-            res.redirect("/login");
-        }
-    } catch (error) {
-        console.error(error); // Log the error for debugging
-        res.redirect("/login");
-    }
-}
 
 app.get("/show/:id", async (req, res) => {
     const listing = await listingModel.findOne({ _id: req.params.id });
     let login = false;
+    let isDoctor = false;
     if(req.cookies.token) {
        login = true;
+       let data = jwt.verify(req.cookies.token,"sarthak"); 
+       let userInfo = await userModel.findOne({email : data.email});
+       isDoctor = userInfo.isDoctor;
+       console.log(userInfo)
+       
     }
-    res.render("listing/show", {listing , login}); 
+    res.render("listing/show", {listing ,isDoctor , login  }); 
 
 });
 
@@ -196,6 +182,11 @@ app.get("/list" , isloggedIn , async (req , res)=>{
 
 })
 
+app.get("/verification/:id" ,isloggedIn , isDoctor, async(req , res)=> {
+     let list = await listingModel.findOneAndUpdate({_id : req.params.id },{verified : true}) ;
+     res.redirect(`/show/${req.params.id}`); 
+})
+
 function isloggedIn(req,res,next) {
    
     try {
@@ -209,6 +200,31 @@ function isloggedIn(req,res,next) {
         res.redirect("/login");
     }
 } 
+
+
+async function isDoctor(req, res, next) {
+    try {
+        // Check if token is present
+        if (!req.cookies.token) {
+            return res.redirect("/login");
+        }
+
+        // Retrieve the user based on the token's email (assuming req.user is set properly by some authentication middleware)
+        let user = await userModel.findOne({ email: req.user.email });
+
+        // Check if the user exists and has admin privileges
+        if (user && user.isDoctor) {
+            req.isdoctor = true;
+            next();
+        } else {
+            res.redirect("/login");
+        }
+    } catch (error) {
+        console.error(error); // Log the error for debugging
+        res.redirect("/login");
+    }
+}
+
 
 
  
