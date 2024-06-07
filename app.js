@@ -22,15 +22,18 @@ app.use(cookieParser());
 
 let mongooseURL = "mongodb://127.0.0.1:27017/RuralRemedies";
 
+
 let main = async () => {
     await mongoose.connect(mongooseURL);
 };
+
 
 main().then(() => {
     console.log("Db connected");
 }).catch((err) => {
     console.log("mongoose connection failed", err);
 });
+
 
 app.get("/" , (req , res)=>{
     let login = false;
@@ -39,6 +42,62 @@ app.get("/" , (req , res)=>{
      }
     res.render("listing/home" , {login});
 })
+
+
+app.get("/forgetpass" , (req , res)=> {
+    let login = false;
+    if(req.cookies.token) {
+        login = true;
+    }
+      res.render("listing/forgetPassword" , {login});
+});
+
+
+app.post("/forgetpass", async (req, res) => {
+    const { newPassword, currPassword, email } = req.body;
+
+    try {
+        // Find the user by email
+        let user = await userModel.findOne({ email: email });
+
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+
+        // Generate salt and hash the new password
+        bcrypt.genSalt(10, async (err, salt) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send("Internal Server Error");
+            } 
+            bcrypt.compare(req.body.currPassword, user.password, function(err, result) {
+                if (result) {
+                    
+                    bcrypt.hash(newPassword, salt, async (err, hash) => {
+                        if (err) {
+                            console.error(err);
+                            return res.status(500).send("Internal Server Error");
+                        }
+        
+                        // Update user's password with the hashed password
+                        user.password = hash;
+                        await user.save();
+        
+                        res.redirect("/login"); // Redirect to login page after successful password update
+                    });
+
+                } else {
+                    return res.status(401).send("Invalid credentials");
+                }
+            });
+
+           
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 
 app.get("/remedies" , async (req , res)=>{
