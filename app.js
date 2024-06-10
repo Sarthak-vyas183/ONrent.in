@@ -203,6 +203,8 @@ app.get("/login" , async (req , res)=>{
     let login = false;
     if(req.cookies.token) {
        login = true;
+      res.redirect("/");
+      return;
     }
     res.render("listing/login" , {login});
 })

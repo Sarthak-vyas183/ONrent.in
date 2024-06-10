@@ -1,0 +1,19 @@
+.home-main {
+    width: 100vw;
+    height: 85vh;
+    background-image: url("../images/home.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.intro {
+    width: 100vw;
+    height: 100vh;
+    background-color:#d8dce4;
+}
+
+.intro2 {
+    width: 100vw;
+    min-height: 100vh;
+    background-color:#ffffff;
+}

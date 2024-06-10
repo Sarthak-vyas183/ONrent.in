@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>onRent</title>
+    <title>Remedies</title>
 </head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
  <link rel="stylesheet" href="/Stylesheet/style.css">
+ <link rel="stylesheet" href="/Stylesheet/home.css">
+ <link rel="stylesheet" href="/Stylesheet/login.css">
  <script src="https://cdn.tailwindcss.com"></script>
 
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -15,19 +17,21 @@
 
 
 
-  <div class="w-screen h-[10vh] px-4 nav">
+  <div class="w-screen h-[10vh] px-4 nav bg-[#2c7b63]">
     <div class="left w-[70%] flex gap-12 items-center">
-      <div class="logo flex items-center">
-        <a href="/"><img class="w-10 h-10" src="../images/logo.png" alt=""></a>
-        <h1 class="text-[#fb3a5c] font-semibold text-2xl">onRent</h1>
+      <div class="logo flex items-center gap-2">
+        <a href="/"><img class="w-10 rounded-full h-10" src="../images/logo.jpg" alt=""></a>
+        <h1 class="text-white font-semibold text-2xl">RemedyHub</h1>
       </div>
-      <ul class="flex gap-10">
+      <ul class="flex gap-10 text-white">
+        <li><a href="/">Home</a></li>
         <li><a href="/remedies">All Remedies</a></li>
-        <li><a href="/create">Add Listing</a></li>
+        <li><a href="/create">Add Remedy</a></li>
+        <li><a href="/contact">Contact-Us</a></li>
       </ul>
     </div>
     <div class="right w-[30%] flex gap-5 items-center">
-      <h1 class="font-semibold"><a href="/create">onRent your home</a></h1>
+      <h1 class="font-semibold text-white"><a href="/create">onRent your home</a></h1>
       <div id="profileDropdown" class="dropdown">
         <button id="btn-message" class="button-message">
           <div class="content-avatar">
@@ -39,7 +43,13 @@
             </div>
           </div>
           <div class="notice-content">
-            <div class="lable-message">Profile</div>
+            <div class="lable-message">
+               <% if(login == true) { %>
+                    Profile
+             <%  } else { %>
+                    signUp
+             <%  } %>
+            </div>
           </div>
         </button>
         <div class="dropdown-content min-w-52 min-h-40 mt-2  p-3 rounded-md">
@@ -67,9 +77,11 @@
   </div>
 
   </div>
-    <div class="container">
-        <%- body  %>
-    </div>
+   <div>
+    <%- body  %>
+   </div> 
+   
+    
 
 
   <div class="footer w-screen h-[60vh] bg-slate-200 flex-col px-10">
