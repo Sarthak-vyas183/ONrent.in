@@ -27,11 +27,35 @@
                 <a class="text-white w-24 h-8 bg-green-600 rounded-sm mr-4 px-7 py-2" href="/verification/<%=listing._id %>">Verify Remedy</a>
              </div>
          <%  }%>
-            
-          
 
+         <div>
+            <% 
+            const userId = user ? user._id : 'defaultUserId'; 
+            const listingId = listing ? listing._id : 'defaultListingId';
+          %>
+          <form action="/comment/<%= userId %>/<%= listingId %>" method="post" class="flex gap-10 mt-4">
+              <input class="outline-dotted pl-2 w-full" type="text" name="message" placeholder="comment Here">
+              <button class="text-white w-36 h-8 bg-blue-800 rounded-sm">Comment</button>
+          </form>
+         
+
+              
+           <% reviews.map((element , index) => {  %>
+            <div class="comments w-full h-auto bg-red-300 my-4">
+                <div class="comment px-2">
+                   <h1 class="font-semibold mb-2">@<%= element.username %></h1>
+                <div>
+               <h1 class="text-sm"><%= element.message %></h1>
+           </div>
+                </div>
+           </div>
+        <%  }) %>
+        
+
+
+         </div>
     </div>
-       </div>
-
+    </div>
+  
       
 </body>

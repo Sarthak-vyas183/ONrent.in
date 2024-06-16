@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const listingModel = require("./models/listing");
 const userModel = require("./models/user");
+const reviewModel = require("./models/review");
 const path = require("path");
 const engine = require('ejs-mate');
 const app = express();
@@ -122,15 +123,45 @@ app.get("/show/:id", async (req, res) => {
     const listing = await listingModel.findOne({ _id: req.params.id });
     let login = false;
     let isDoctor = false;
+    let user = null;
     if(req.cookies.token) {
        login = true;
        let data = jwt.verify(req.cookies.token,"sarthak"); 
        let userInfo = await userModel.findOne({email : data.email});
        isDoctor = userInfo.isDoctor;
-       console.log(userInfo)
-       
+       //console.log(userInfo)
+       user = userInfo;
+       //console.log(user)
     }
-    res.render("listing/show", {listing ,isDoctor , login  }); 
+
+
+    const reviews = await reviewModel.find({listId : req.params.id}) 
+    console.log(reviews)
+
+    res.render("listing/show", {listing ,isDoctor , login , user , reviews  }); 
+
+});
+
+app.post("/comment/:userId/:listingId" , isloggedIn , async(req , res)=> {
+    let user = await userModel.findOne({_id : req.params.userId})
+    if(!user) {
+        res.status(404).send("user not found");
+    }
+    let list = await listingModel.findOne({_id : req.params.listingId})
+    if(!list) {
+        res.status(404).send("remedy not found");
+    }
+  const comment =   await reviewModel.create({
+          listId : req.params.listingId,
+          userId : req.params.userId,
+          username : user.username,
+          message : req.body.message
+   }) 
+    if(comment) {
+       res.redirect(`/show/${req.params.listingId}`)
+    } else {
+        res.send("error")
+    }
 
 });
 
@@ -343,5 +374,5 @@ app.post("/edit/:id", async (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log("app is listening at port 8080");
+    console.log("app is listening at port 3000");
 });
