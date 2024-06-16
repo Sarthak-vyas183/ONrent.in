@@ -14,6 +14,10 @@ const reviewSchema = new Schema({
    username : {
       type : String
    },
+   isDoctor : {
+      type : Boolean,
+      default : false
+   },
    message : {
     type : String
    }

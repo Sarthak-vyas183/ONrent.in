@@ -155,6 +155,7 @@ app.post("/comment/:userId/:listingId" , isloggedIn , async(req , res)=> {
           listId : req.params.listingId,
           userId : req.params.userId,
           username : user.username,
+          isDoctor : user.isDoctor,
           message : req.body.message
    }) 
     if(comment) {
