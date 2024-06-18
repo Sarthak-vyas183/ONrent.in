@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-let mongooseURL = "mongodb://127.0.0.1:27017/RuralRemedies";
+let mongooseURL = "mongodb+srv://vyassarthak183:sarthak123@firstdb.hwpybji.mongodb.net/RuralRemedies";
 
 
 let main = async () => {
