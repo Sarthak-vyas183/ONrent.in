@@ -9,7 +9,6 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { userInfo } = require("os");
 
 
 app.engine('ejs', engine);
